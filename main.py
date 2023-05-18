@@ -6,42 +6,59 @@ clock = pygame.time.Clock()
 screen_width, screen_height = 800, 800
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Bouncing Balls")
+clock = pygame.time.Clock()
 
-GRAVITY = 9.8
+
+GRAVITY = 1
+FPS = 60
 
 class Ball(object):
-
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y, width, height,r):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
         self.color = (randint(0,255), randint(0,255), randint(0,255))
-
+        self.r = r
+        self.yv = 0
+        self.ya = GRAVITY
 
     def draw(self):
-        pygame.draw.circle(screen, self.color ,(self.x, self.y),15,)
+        pygame.draw.circle(screen, self.color ,(self.x, self.y),self.r)
 
     def move(self):
-        self.y += GRAVITY
+        if self.ya < 2:
+            self.yv = self.yv + self.ya
+            self.ya += GRAVITY
+            self.y = self.yv
+        else:
+            self.yv = self.yv + self.ya
+            self.y += self.yv
 
-
+    def collide(self):
+        self.yv = -self.yv
 
 # game loop
 def game():
     running = True
-    ball = Ball(20,20,20,20)
+    balls = [Ball(20,20,20,20,15)]
     while running:
     
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
+        screen.fill((0,0,0))
 
         pygame.draw.line(screen, (255,255,255),(0,screen_height/3), (screen_width,screen_height/3),10)
-
-        ball.draw()
-        ball.move()
+        for ball in balls:
+            if ball.y + ball.r > screen_height/3 - 10:
+                ball.collide()
+            ball.draw()
+            ball.move()
+        pygame.display.flip()
         pygame.display.update()
+        clock.tick(FPS)
 
-game()
+
+if __name__ == '__main__':
+    game()
