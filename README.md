@@ -1,1 +1,1 @@
-# bouncing-balls
+Bouncing ball simulation in pygame
