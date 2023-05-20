@@ -13,7 +13,7 @@ clock = pygame.time.Clock()
 
 # * Game constants
 BLACK, WHITE = (0, 0, 0), (255, 255, 255)
-GREY, LIGHT_GREY = (177,177,177), (100,100,100)
+LIGHT_GREY, GREY = (177,177,177), (100,100,100)
 GRAVITY = 1
 FPS = 60
 BUTTON_SIZE=[screen_width//3, 100]
@@ -69,32 +69,62 @@ class Ball(object):
 def game():
     running = True
     ball_radius = 15
-    play = False
+    play_random = False
+    play_custom = False
     txt = font.render("Random", True, (255,255,255))
+    txt2 = font.render("Custom", True, (255,255,255))
+    txt3 = font.render("Quit", True, (255,255,255))
     balls = [Ball(
                 randint(ball_radius + 1, screen_width - ball_radius - 1), 
                 randint(ball_radius + 1, screen_height - ball_radius - 1), 
                 20, 20, ball_radius )  for _ in range(30)]
+    
+
 
     while running:
         mouse = pygame.mouse.get_pos()
+        btn1_condition = (screen_width // 3 <= mouse[0] <= 2 * screen_width // 3) and (screen_height // 6 <= mouse[1] <= screen_height // 6 + BUTTON_SIZE[1])
+        btn2_condition = (screen_width // 3 <= mouse[0] <= 2 * screen_width // 3) and (2 * screen_height // 6 <= mouse[1] <= 2 * screen_height // 6 + BUTTON_SIZE[1])
+        btn3_condition = (screen_width // 3 <= mouse[0] <= 2 * screen_width // 3) and (3 * screen_height // 6 <= mouse[1] <= 3 * screen_height // 6 + BUTTON_SIZE[1])
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if (screen_width//3 <= mouse[0] <= 2*screen_width//3) and (screen_height//6 <= mouse[1] <= screen_height//6 + BUTTON_SIZE[1]):
-                    play = True
-                # todo more buttons
+                if btn1_condition:
+                    play_random = True
+                elif btn2_condition:
+                    play_custom = True
+                elif btn3_condition:
+                    running = False
+                    
         screen.fill(BLACK)
 
-        if not play:
+        if not (play_random or play_custom):
             # * Show game options
-            if (screen_width//3 <= mouse[0] <= 2*screen_width//3) and (screen_height//6 <= mouse[1] <= screen_height//6 + BUTTON_SIZE[1]):
-                pygame.draw.rect(screen, GREY, ((screen_width//3,screen_height//6), (BUTTON_SIZE[0],BUTTON_SIZE[1])))
+            if btn1_condition:
+                pygame.draw.rect(screen, LIGHT_GREY, ((screen_width // 3, screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
+                pygame.draw.rect(screen, GREY, ((screen_width//3, 2 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
+                pygame.draw.rect(screen, GREY, ((screen_width//3, 3 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
+
+            elif btn2_condition:
+                pygame.draw.rect(screen, LIGHT_GREY, ((screen_width // 3, 2 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
+                pygame.draw.rect(screen, GREY, ((screen_width // 3, screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
+                pygame.draw.rect(screen, GREY, ((screen_width//3, 3 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
+
+            elif btn3_condition:
+                pygame.draw.rect(screen, LIGHT_GREY, ((screen_width // 3, 3 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
+                pygame.draw.rect(screen, GREY, ((screen_width // 3, screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
+                pygame.draw.rect(screen, GREY, ((screen_width//3, 2 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
+
             else:
-                pygame.draw.rect(screen, LIGHT_GREY, ((screen_width//3,screen_height//6), (BUTTON_SIZE[0],BUTTON_SIZE[1])))
-            screen.blit(txt,(200+screen_width//3, screen_height//6 + 25))
-            # todo add more options
+                pygame.draw.rect(screen, GREY, ((screen_width // 3, screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
+                pygame.draw.rect(screen, GREY, ((screen_width // 3, 2 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
+                pygame.draw.rect(screen, GREY, ((screen_width // 3, 3 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
+                
+            screen.blit(txt,(200 + screen_width // 3, screen_height // 6 + 25))
+            screen.blit(txt2,(200 + screen_width // 3, 2 * screen_height // 6 + 25))
+            screen.blit(txt3,(200 + screen_width // 3, 3 * screen_height // 6 + 25))
         
         else:
             # * Start game
