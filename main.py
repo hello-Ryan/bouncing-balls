@@ -140,9 +140,9 @@ def game():
                 # * random game
                 # ! pygame.draw.line(screen, WHITE, (0, line_y), (screen_width, line_y), line_width)
                 for ball in random_balls:
-                    if(ball.x - ball.r <= 0) or (ball.x + ball.r >= screen_width):
+                    if (ball.x - ball.r <= 0) or (ball.x + ball.r >= screen_width):
                         ball.x_collide()
-                    elif  (ball.y + ball.r >= screen_height):
+                    elif ball.y + ball.r >= screen_height:
                         ball.y_collide()
                     ball.move()
                     ball.draw()
@@ -151,9 +151,9 @@ def game():
                 # * custom game
                 # ! pygame.draw.line(screen, WHITE, (0, line_y), (screen_width, line_y), line_width)
                 for ball in custom_balls:
-                    if(ball.x - ball.r <= 0) or (ball.x + ball.r >= screen_width):
+                    if (ball.x - ball.r <= 0) or (ball.x + ball.r >= screen_width):
                         ball.x_collide()
-                    elif  (ball.y + ball.r >= screen_height):
+                    elif ball.y + ball.r >= screen_height:
                         ball.y_collide()
                     ball.move()
                     ball.draw()
