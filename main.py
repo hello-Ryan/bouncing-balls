@@ -108,18 +108,18 @@ def game():
             # * Show game options
             if btn1_condition:
                 pygame.draw.rect(screen, LIGHT_GREY, ((screen_width // 3, screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
-                pygame.draw.rect(screen, GREY, ((screen_width//3, 2 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
-                pygame.draw.rect(screen, GREY, ((screen_width//3, 3 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
+                pygame.draw.rect(screen, GREY, ((screen_width // 3, 2 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
+                pygame.draw.rect(screen, GREY, ((screen_width // 3, 3 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
 
             elif btn2_condition:
                 pygame.draw.rect(screen, LIGHT_GREY, ((screen_width // 3, 2 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
                 pygame.draw.rect(screen, GREY, ((screen_width // 3, screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
-                pygame.draw.rect(screen, GREY, ((screen_width//3, 3 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
+                pygame.draw.rect(screen, GREY, ((screen_width // 3, 3 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
 
             elif btn3_condition:
                 pygame.draw.rect(screen, LIGHT_GREY, ((screen_width // 3, 3 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
                 pygame.draw.rect(screen, GREY, ((screen_width // 3, screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
-                pygame.draw.rect(screen, GREY, ((screen_width//3, 2 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
+                pygame.draw.rect(screen, GREY, ((screen_width // 3, 2 * screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
 
             else:
                 pygame.draw.rect(screen, GREY, ((screen_width // 3, screen_height // 6), (BUTTON_SIZE[0], BUTTON_SIZE[1])))
@@ -133,27 +133,27 @@ def game():
 
 
         else:
-            line_y = int(2 * screen_height / 3) - 10
-            line_width = 10
+            # ! line_y = int(2 * screen_height / 3) - 10
+            # ! line_width = 10
 
             if play_random:
                 # * random game
-                pygame.draw.line(screen, WHITE, (0, line_y), (screen_width, line_y), line_width)
+                # ! pygame.draw.line(screen, WHITE, (0, line_y), (screen_width, line_y), line_width)
                 for ball in random_balls:
                     if(ball.x - ball.r <= 0) or (ball.x + ball.r >= screen_width):
                         ball.x_collide()
-                    elif  (ball.y + ball.r >= line_y):
+                    elif  (ball.y + ball.r >= screen_height):
                         ball.y_collide()
                     ball.move()
                     ball.draw()
 
             elif play_custom:
                 # * custom game
-                pygame.draw.line(screen, WHITE, (0, line_y), (screen_width, line_y), line_width)
+                # ! pygame.draw.line(screen, WHITE, (0, line_y), (screen_width, line_y), line_width)
                 for ball in custom_balls:
                     if(ball.x - ball.r <= 0) or (ball.x + ball.r >= screen_width):
                         ball.x_collide()
-                    elif  (ball.y + ball.r >= line_y):
+                    elif  (ball.y + ball.r >= screen_height):
                         ball.y_collide()
                     ball.move()
                     ball.draw()
