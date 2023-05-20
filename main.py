@@ -33,7 +33,7 @@ class Ball(object):
 
     def draw(self):
         # ! always spawning at the top of the screen for some reason
-        pygame.draw.circle(screen, self.color, (self.y, self.y), self.r)
+        pygame.draw.circle(screen, self.color, (self.x, self.y), self.r)
 
     def move(self):
         # * Limit acceleration to only 1 to slow game down
