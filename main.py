@@ -32,7 +32,6 @@ class Ball(object):
         self.bounces = 0
 
     def draw(self):
-        # ! always spawning at the top of the screen for some reason
         pygame.draw.circle(screen, self.color, (self.x, self.y), self.r)
 
     def move(self):
@@ -40,7 +39,7 @@ class Ball(object):
         if self.ya < 1:
             self.yv = self.yv + self.ya
             self.ya += GRAVITY
-            self.y = self.yv
+            self.y += self.yv
         else:
             self.yv = self.yv + self.ya
             self.y += self.yv
